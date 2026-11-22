@@ -16,7 +16,6 @@ import com.coolweather.coolweatherjetpack.data.Resource
 import com.coolweather.coolweatherjetpack.ui.MainActivity
 import com.coolweather.coolweatherjetpack.ui.weather.WeatherActivity
 import com.coolweather.coolweatherjetpack.util.InjectorUtil
-import kotlinx.android.synthetic.main.activity_weather.*
 
 class ChooseAreaFragment : Fragment() {
 

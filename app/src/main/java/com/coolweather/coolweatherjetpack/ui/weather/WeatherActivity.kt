@@ -18,14 +18,23 @@ import com.coolweather.coolweatherjetpack.data.Resource
 import com.coolweather.coolweatherjetpack.data.model.weather.Weather
 import com.coolweather.coolweatherjetpack.ui.MainActivity
 import com.coolweather.coolweatherjetpack.util.InjectorUtil
-import kotlinx.android.synthetic.main.activity_weather.*
-import kotlinx.android.synthetic.main.aqi.*
-import kotlinx.android.synthetic.main.forecast.*
-import kotlinx.android.synthetic.main.now.*
-import kotlinx.android.synthetic.main.suggestion.*
-import kotlinx.android.synthetic.main.title.*
 
 class WeatherActivity : AppCompatActivity() {
+    val drawerLayout get() = findViewById<androidx.drawerlayout.widget.DrawerLayout>(R.id.drawerLayout)
+    val swipeRefresh get() = findViewById<androidx.swiperefreshlayout.widget.SwipeRefreshLayout>(R.id.swipeRefresh)
+    private val weatherLayout get() = findViewById<android.widget.ScrollView>(R.id.weatherLayout)
+    private val bingPicImg get() = findViewById<android.widget.ImageView>(R.id.bingPicImg)
+    private val navButton get() = findViewById<android.widget.Button>(R.id.navButton)
+    private val forecastLayout get() = findViewById<android.widget.LinearLayout>(R.id.forecastLayout)
+    private val titleCity get() = findViewById<TextView>(R.id.titleCity)
+    private val titleUpdateTime get() = findViewById<TextView>(R.id.titleUpdateTime)
+    private val degreeText get() = findViewById<TextView>(R.id.degreeText)
+    private val weatherInfoText get() = findViewById<TextView>(R.id.weatherInfoText)
+    private val aqiText get() = findViewById<TextView>(R.id.aqiText)
+    private val pm25Text get() = findViewById<TextView>(R.id.pm25Text)
+    private val comfortText get() = findViewById<TextView>(R.id.comfortText)
+    private val carWashText get() = findViewById<TextView>(R.id.carWashText)
+    private val sportText get() = findViewById<TextView>(R.id.sportText)
 
     lateinit var viewModel: WeatherViewModel
 
@@ -44,7 +53,7 @@ class WeatherActivity : AppCompatActivity() {
             mWeatherId = viewModel.getCachedWeather().basic.weatherId
             showWeatherInfo(viewModel.getCachedWeather())
         } else {
-            mWeatherId = intent.getStringExtra("weather_id")
+            mWeatherId = intent.getStringExtra("weather_id").orEmpty()
             weatherLayout.visibility = View.INVISIBLE
             observeWeather(viewModel.getWeather(mWeatherId, MainActivity.KEY), false)
         }
